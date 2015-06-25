@@ -3,7 +3,7 @@ require "kernelc.k"
 module FIND-SPEC
 imports C-VERIFIER
 
-rule
+rule [func-find]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -24,7 +24,7 @@ rule
         <locs-written> _:List => .List </locs-written>
       <formatting-wrapper> .Bag </formatting-wrapper>
       <type-wrapper> .Bag </type-wrapper>
-      <initializing> Initializing:Int </initializing>
+      <initializing> 0 /* Initializing:Int */ </initializing>
       <duration> auto(0) </duration>
       <k> 
         Call1(
@@ -43,11 +43,11 @@ rule
   </files>
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 requires avl(T)
- andBool min(t(.Set, int)) <=Int V:Int andBool V:Int <=Int max(t(.Set, int))
- andBool Initializing >=Int 0
+ andBool min(t(.Set, int)) <=Int V:Int andBool V:Int <=Int max(t(.Set, int)) // c-specific
+// andBool Initializing >=Int 0 // c-specific
 ensures  (?B =/=K 0) ==K (V inIntSet tree_keys(T))
 
-rule
+rule [aux-checkLoc]:
   <functions> FUNCTIONS:Map </functions>
   <structs> STRUCTS:Map </structs>
   <external-types> EXTERNALTYPES:Map </external-types>
