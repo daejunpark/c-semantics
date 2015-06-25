@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#kompile c-verifier.k
+
 #rm -f bst bst.o; ../dist/kcc bst.c -o bst; DUMPALL=1 ./bst; mv tmp-kcc-in-*.bin bst.o; rm tmp-kcc-out-*.txt
 #rm -f avl avl.o; ../dist/kcc avl.c -o avl; DUMPALL=1 ./avl; mv tmp-kcc-in-*.bin avl.o; rm tmp-kcc-out-*.txt
 
