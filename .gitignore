@@ -17,6 +17,8 @@ semantics/.kompile-*
 verification/.kompile-*
 verification/avl
 verification/avl.o
+verification/avl.out
 verification/bst
 verification/bst.o
+verification/bst.out
 verification/c-verifier-kompiled
