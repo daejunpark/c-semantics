@@ -10,3 +10,13 @@ parser/cparser.ml
 parser/cparser.mli
 semantics/settings.k
 semantics/extensions.k
+
+.env
+semantics/.kompile-*
+semantics/.kompile-*
+verification/.kompile-*
+verification/avl
+verification/avl.o
+verification/bst
+verification/bst.o
+verification/c-verifier-kompiled
