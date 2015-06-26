@@ -15,6 +15,7 @@ semantics/extensions.k
 semantics/.kompile-*
 semantics/.kompile-*
 verification/.kompile-*
+verification/.krun-*
 verification/avl
 verification/avl.o
 verification/avl.out
