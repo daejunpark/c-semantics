@@ -43,7 +43,6 @@ rule [func-color]:
   </files>
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 ensures ctree_color(T) ==K 1 orBool ctree_color(T) ==K 0
-  [trusted]
 
 rule [func-find-min]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
@@ -86,7 +85,6 @@ rule [func-find-min]:
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 requires TP =/=K NullPointer andBool rbt(T)
 ensures (?M inIntSet ctree_keys(T)) andBool ({ ?M } <=IntSet ctree_keys(T))
-  [trusted]
 
 rule [func-left-delete-fixup]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
@@ -185,7 +183,6 @@ ensures rbt(cnode(?I2,?C2,?L2,?R2))
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
-  [trusted]
 
 rule [func-right-delete-fixup]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
@@ -284,7 +281,6 @@ ensures rbt(cnode(?I2,?C2,?L2,?R2))
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
-  [trusted]
 
 rule [func-delete-aux]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
@@ -375,7 +371,6 @@ ensures rbt(?T2)
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
-  [trusted]
 
 rule [func-delete]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
