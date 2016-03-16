@@ -43,7 +43,6 @@ rule
   </files>
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 ensures ctree_color(T) ==K 1 orBool ctree_color(T) ==K 0
-  [trusted]
 
 rule
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
@@ -170,6 +169,5 @@ ensures rbt(?T2)
   andBool ctree_keys(?T2) ==K { V } U ctree_keys(T1)
   andBool ctree_height(T1) <=Int ctree_height(?T2)
   andBool ctree_height(?T2) <=Int ctree_height(T1) +Int 1
-  [trusted]
 
 endmodule

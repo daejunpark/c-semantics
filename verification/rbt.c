@@ -127,7 +127,6 @@ struct node *insert(int value, struct node *tree)
 struct node *left_delete_fixup(int *fixed, struct node *tree)
 {
   if (color(tree->right) != 1 /* RED */) { // case 2
-return;
     tree = left_rotate(tree);
     tree->color = 1 /* BLACK */;
     tree->left->color = 0 /* RED */;
@@ -137,7 +136,6 @@ return;
   else {
     if (color(tree->right->left) == 1 /* BLACK */ &&
         color(tree->right->right) == 1 /* BLACK */) { // case 3 & 4
-return;
       if (color(tree) == 1 /* BLACK */) { // case 3
         *fixed = 0; // fixup will be called again later
       } else { // case 4
@@ -148,7 +146,6 @@ return;
     }
     else {
       if (color(tree->right->right) == 1 /* BLACK */) { // case 5
-return;
         tree->right = right_rotate(tree->right);
         tree->right->color = 1 /* BLACK */;
         tree->right->right->color = 0 /* RED */;
