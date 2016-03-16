@@ -150,7 +150,7 @@ requires ((((((F13 <<Int 8) |Int F12) <<Int 8) |Int F11) <<Int 8) |Int F10) =/=K
 //andBool min(t(.Set, int)) <=Int C1 andBool C1 <=Int max(t(.Set, int)) // c-specific
 //andBool min(t(.Set, int)) <=Int RI1 andBool RI1 <=Int max(t(.Set, int)) // c-specific
 //andBool min(t(.Set, int)) <=Int RC1 andBool RC1 <=Int max(t(.Set, int)) // c-specific
-  andBool ctree_height(L1) <=Int max(t(.Set, int)) -Int 2 // c-specific
+  andBool ctree_height(L1) <=Int max(t(.Set, int)) -Int 1 -Int C1 // c-specific
   andBool (
             ((((((F13 <<Int 8) |Int F12) <<Int 8) |Int F11) <<Int 8) |Int F10) ==K 1
           orBool
@@ -248,7 +248,7 @@ requires ((((((F13 <<Int 8) |Int F12) <<Int 8) |Int F11) <<Int 8) |Int F10) =/=K
 //andBool min(t(.Set, int)) <=Int C1 andBool C1 <=Int max(t(.Set, int)) // c-specific
 //andBool min(t(.Set, int)) <=Int LI1 andBool LI1 <=Int max(t(.Set, int)) // c-specific
 //andBool min(t(.Set, int)) <=Int LC1 andBool LC1 <=Int max(t(.Set, int)) // c-specific
-  andBool ctree_height(R1) <=Int max(t(.Set, int)) -Int 2 // c-specific
+  andBool ctree_height(R1) <=Int max(t(.Set, int)) -Int 1 -Int C1 // c-specific
   andBool (
             ((((((F13 <<Int 8) |Int F12) <<Int 8) |Int F11) <<Int 8) |Int F10) ==K 1
           orBool
