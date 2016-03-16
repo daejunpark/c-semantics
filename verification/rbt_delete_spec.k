@@ -3,7 +3,7 @@ require "c-verifier.k"
 module DELETE-SPEC
 imports C-VERIFIER
 
-rule
+rule [func-color]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -43,8 +43,9 @@ rule
   </files>
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 ensures ctree_color(T) ==K 1 orBool ctree_color(T) ==K 0
+  [trusted]
 
-rule
+rule [func-find-min]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -85,8 +86,9 @@ rule
   <error-cell-wrapper> .Bag </error-cell-wrapper>
 requires TP =/=K NullPointer andBool rbt(T)
 ensures (?M inIntSet ctree_keys(T)) andBool ({ ?M } <=IntSet ctree_keys(T))
+  [trusted]
 
-rule
+rule [func-left-delete-fixup]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -99,12 +101,11 @@ rule
   <status> mainCalled </status>
   <mem>...
     MEM:Map
-    FP:Int @ alloc |-> object(t(.Set, no-type), 4,
+    FP @ auto(0) |-> object(t(.Set, int), 4,
        0 |-> piece(F10:Int => ?F20:Int, 8)
        1 |-> piece(F11:Int => ?F21:Int, 8) 
        2 |-> piece(F12:Int => ?F22:Int, 8) 
-       3 |-> piece(F13:Int => ?F23:Int, 8),
-       0 |-> t(.Set, int))
+       3 |-> piece(F13:Int => ?F23:Int, 8), .Map)
   (
     ctree( TP1)(cnode( I1:Int, C1:Int, L1:CTree,cnode(RI1:Int,RC1:Int,RL1:CTree,RR1:CTree)))
   =>
@@ -128,7 +129,7 @@ rule
             tv(loc(8 /* left_delete_fixup */ @ static("rbt.c"), 0),
                 t(.Set, pointerType(t(.Set, functionType(t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))), ListItem(t(.Set, pointerType(t(.Set, int)))) ListItem(t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))))))))),
             rvlist(
-                ListItem(tv(loc(FP:Int @ alloc, 0, SetItem(align(16)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
+                ListItem(tv(loc(FP:Int @ auto(0), 0, SetItem(align(4)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
                 ListItem(tv(TP1:CanonicalSymLoc, t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c")))))))))
       =>
         tv(?TP2:CanonicalSymLoc, t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))))
@@ -184,8 +185,9 @@ ensures rbt(cnode(?I2,?C2,?L2,?R2))
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
+  [trusted]
 
-rule
+rule [func-right-delete-fixup]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -198,12 +200,11 @@ rule
   <status> mainCalled </status>
   <mem>...
     MEM:Map
-    FP:Int @ alloc |-> object(t(.Set, no-type), 4,
+    FP @ auto(0) |-> object(t(.Set, int), 4,
        0 |-> piece(F10:Int => ?F20:Int, 8)
        1 |-> piece(F11:Int => ?F21:Int, 8) 
        2 |-> piece(F12:Int => ?F22:Int, 8) 
-       3 |-> piece(F13:Int => ?F23:Int, 8),
-       0 |-> t(.Set, int))
+       3 |-> piece(F13:Int => ?F23:Int, 8), .Map)
   (
     ctree( TP1)(cnode( I1:Int, C1:Int,cnode(LI1:Int,LC1:Int,LL1:CTree,LR1:CTree), R1:CTree))
   =>
@@ -227,7 +228,7 @@ rule
             tv(loc(9 /* right_delete_fixup */ @ static("rbt.c"), 0),
                 t(.Set, pointerType(t(.Set, functionType(t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))), ListItem(t(.Set, pointerType(t(.Set, int)))) ListItem(t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))))))))),
             rvlist(
-                ListItem(tv(loc(FP:Int @ alloc, 0, SetItem(align(16)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
+                ListItem(tv(loc(FP:Int @ auto(0), 0, SetItem(align(4)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
                 ListItem(tv(TP1:CanonicalSymLoc, t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c")))))))))
       =>
         tv(?TP2:CanonicalSymLoc, t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))))
@@ -283,8 +284,9 @@ ensures rbt(cnode(?I2,?C2,?L2,?R2))
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
+  [trusted]
 
-rule
+rule [func-delete-aux]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
@@ -297,12 +299,11 @@ rule
   <status> mainCalled </status>
   <mem>...
     MEM:Map
-    FP:Int @ alloc |-> object(t(.Set, no-type), 4,
+    FP @ auto(0) |-> object(t(.Set, int), 4,
        0 |-> piece(F10:Int => ?F20:Int, 8)
        1 |-> piece(F11:Int => ?F21:Int, 8) 
        2 |-> piece(F12:Int => ?F22:Int, 8) 
-       3 |-> piece(F13:Int => ?F23:Int, 8),
-       0 |-> t(.Set, int))
+       3 |-> piece(F13:Int => ?F23:Int, 8), .Map)
   (
     ctree( TP1)( T1:CTree)
   =>
@@ -330,7 +331,7 @@ rule
                     ListItem(t(.Set, int))
                     ListItem(t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c"))))))))))),
             rvlist(
-                ListItem(tv(loc(FP:Int @ alloc, 0, SetItem(align(16)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
+                ListItem(tv(loc(FP:Int @ auto(0), 0, SetItem(align(4)) SetItem(fromArray(0, 4))), t(.Set, pointerType(t(.Set, int)))))
                 ListItem(tv(V:Int, t(.Set, int)))
                 ListItem(tv(TP1:CanonicalSymLoc, t(.Set, pointerType(t(.Set, structType(global(Identifier("node"), "rbt.c")))))))))
       =>
@@ -374,8 +375,9 @@ ensures rbt(?T2)
           orBool
             ((((((?F23 <<Int 8) |Int ?F22) <<Int 8) |Int ?F21) <<Int 8) |Int ?F20) ==K 0
           )
+  [trusted]
 
-rule
+rule [func-delete]:
   <functions> FUNCTIONS:Map </functions> // <functions>... FUNCTIONS:Map ...</functions>
   <structs> STRUCTS:Map </structs>       // <structs>... STRUCTS:Map ...</structs>
   <external-types> EXTERNALTYPES:Map </external-types>
