@@ -4,6 +4,7 @@ require "int_set.k"
 require "int_list.k"
 require "tree_pattern.k"
 require "rbt_pattern.k"
+require "treap_pattern.k"
 require "list_pattern.k"
 
 module C-VERIFIER
@@ -13,6 +14,7 @@ module C-VERIFIER
   imports LIST-PATTERN
   imports TREE-PATTERN
   imports RBT-PATTERN
+  imports TREAP-PATTERN
 
   syntax KItem ::= "breakpoint"
 
